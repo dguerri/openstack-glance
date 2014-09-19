@@ -1,0 +1,39 @@
+---
+
+- name: Create glance db
+  mysql_db: name="{{ item }}"
+            state=present
+            login_host="{{ mysql_hostname }}"
+            login_user="{{ mysql_admin_username }}"
+            login_password="{{ mysql_rootpass }}"
+  with_items:
+    - glance
+  notify:
+    - Sync glance db
+    - Restart glance API
+    - Restart glance registry
+
+
+- name: Create glance user
+  mysql_user: name="{{ item.name }}"
+              host="{{ item.host }}"
+              password="{{ item.password }}"
+              priv="{{ item.privs }}"
+              state=present
+              login_host="{{ mysql_hostname }}"
+              login_user="{{ mysql_admin_username }}"
+              login_password="{{ mysql_rootpass }}"
+              append_privs=yes
+  with_items:
+    - name:     glance
+      host:     localhost
+      password: "{{ glance_dbpass }}"
+      privs:    glance.*:ALL
+    - name:     glance
+      host:     "{{ glance_hostname }}"
+      password: "{{ glance_dbpass }}"
+      privs:    glance.*:ALL
+  notify:
+    - Sync glance db
+    - Restart glance API
+    - Restart glance registry

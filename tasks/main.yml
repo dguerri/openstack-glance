@@ -1,0 +1,17 @@
+---
+
+- meta: flush_handlers
+
+- include: packages.yml
+- include: database.yml
+- include: configuration.yml
+
+- meta: flush_handlers
+
+- name: Wait glance
+  wait_for: host="{{ glance_hostname }}" port="{{ glance_port }}" delay=2
+
+- include: maintenance.yml
+- include: endpoints.yml
+- include: users.yml
+- include: roles.yml

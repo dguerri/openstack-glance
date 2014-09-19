@@ -1,0 +1,9 @@
+---
+
+- name: Create keystone glance user in service tenant
+  keystone_user: user=glance
+                 tenant=service
+                 password="{{ glance_pass }}"
+                 email=glance@localhost
+                 endpoint="http://{{ keystone_hostname }}:{{ keystone_admin_port }}/v2.0"
+                 token="{{ admin_token }}"

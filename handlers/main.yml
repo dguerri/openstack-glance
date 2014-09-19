@@ -1,0 +1,15 @@
+---
+
+- name: Sync glance db
+  shell: glance-manage db_sync
+  sudo: yes
+  sudo_user: glance
+  notify:
+    - Restart glance API
+    - Restart glance registry
+
+- name: Restart glance API
+  service: name=glance-api state=restarted
+
+- name: Restart glance registry
+  service: name=glance-registry state=restarted

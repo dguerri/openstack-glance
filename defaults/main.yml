@@ -1,0 +1,23 @@
+---
+
+glance_hostname: "{{ ansible_eth0.ipv4.address }}"
+
+keystone_hostname: localhost
+mysql_hostname: localhost
+rabbit_hostname: localhost
+
+mysql_admin_username: root
+mysql_rootpass: mysql_root_default
+
+rabbit_username: rabbit_username_default
+rabbit_pass: rabbit_pass_default
+
+glance_dbpass: glance_dbpass_default
+
+glance_pass: glance_pass_default
+
+admin_token: admin_token_default
+
+keystone_admin_port: 35357
+keystone_port: 5000
+glance_port: 9292

@@ -1,0 +1,8 @@
+---
+
+- name: Add admin role to glance user in service tenant
+  keystone_user: role=admin
+                 user=glance
+                 tenant=service
+                 endpoint="http://{{ keystone_hostname }}:{{ keystone_admin_port }}/v2.0"
+                 token="{{ admin_token }}"

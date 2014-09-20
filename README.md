@@ -62,7 +62,7 @@ Example Playbook
 
     - hosts: glance001
       roles:
-        - role: glance
+        - role: openstack-glance
           mysql_rootpass: "{{ MYSQL_ROOT }}"
           rabbit_username: "openstack-glance"
           rabbit_pass: "{{ RABBIT_GLANCE_PASS }}"

@@ -8,49 +8,55 @@ _Tested on Ubuntu Precise (12.04) and Trusty (14.04)_
 Requirements
 ------------
 
-A MySQL server. See `mysql_hostname`, `mysql_admin_username` and
-`mysql_rootpass` below.
+A MySQL server. See below.
 
-A RabbitMQ server. See `rabbit_hostname`, `rabbit_username` and
-`rabbit_pass` below.
+A RabbitMQ server. See below.
 
-A Keystone server. See `keystone_hostname`, `keystone_admin_port` and
-`admin_token` below.
-
+A Keystone server. See below.
 
 Role Variables
 --------------
 
-# Other systems/services
-* `keystone_hostname`:    Hostname/IP address where the keystone service runs.
-                          Defaults to "localhost".
-* `keystone_admin_port`:  Keystone admin service port. Defaults to "35357".
-* `admin_token`:          Keystone admin token
 
-* `rabbit_hostname`:      hostname/IP address where the RabbitMQ service runs.
-                          Defaults to "localhost".
-* `rabbit_username`:      RabbitMQ username for glance.
-                          It must already exist.
-                          Defaults to "rabbit\_username\_default".
-* `rabbit_pass`:          RabbitMQ password for glance.
-                          Defaults to "rabbit\_pass\_default".
+### Glance (set by this role)
 
-* `mysql_hostname`:       MySQL server address. Defaults to "localhost".
-* `mysql_admin_username`: MySQL admin username. Defaults to "root".
-* `mysql_rootpass`:       MySQL admin password. Defaults to "mysql\_root\_default".
+| Name | Default value | Description | Note |
+|---  |---  |---  |--- |
+| `glance_dbpass` | `glance_dbpass_default` | Desired glance user password for the glance ||
+| `glance_hostname` | `localhost` | Hostname/IP address where this role runs, it will be used to set keystone endpoints ||
+| `glance_pass` | `glance_pass_default` | Desired password for the image service ||
+| `glance_port` | `9292` | Desired glance service port ||
+| `glance_protocol` | `http` | Desired glance protocol (http/https) | WiP, do not use. |
 
-# Role specific
-* `glance_hostname`:      Hostname/IP address where this role runs.
-                          It will be used to set keystone endpoints.
-                          Defaults to the first interface IP address (i.e., eth0).
 
-* `glance_port`:          Desired glance service port. Defaults to "9292".
+### Keystone (must exist)
 
-* `glance_dbpass`:        Desired glance user password for the glance database.
-                          Defaults to "glance\_dbpass\_default".
+| Name | Default value | Description | Note |
+|---  |---  |---  |--- |
+| `admin_token` | `admin_token_default` | Keystone admin service token ||
+| `keystone_admin_port` | `35357` | Keystone admin service port ||
+| `keystone_hostname` | `localhost` | Hostname/IP address where the keystone service runs ||
+| `keystone_port` | `5000` | Keystone service port ||
+| `keystone_protocol` | `http` | Desired glance protocol (http/https) | WiP, do not use. |
 
-* `glance_pass`:          Desired password for the image service.
-                          Defaults to glance\_pass\_default.
+
+### MySQL (must exist)
+
+| Name | Default value | Description | Note |
+|---  |---  |---  |--- |
+| `mysql_admin_username` | `root` | MySQL admin username ||
+| `mysql_hostname` | `localhost` | MySQL server address ||
+| `mysql_rootpass` | `mysql_root_default` | MySQL admin password ||
+
+
+### RabbitMQ (must exist)
+
+| Name | Default value | Description | Note |
+|---  |---  |---  |--- |
+| `rabbit_hostname` | `localhost` | Hostname/IP address where the RabbitMQ service runs ||
+| `rabbit_username` | `rabbit_username_default` | RabbitMQ username for glance ||
+| `rabbit_pass` | `rabbit_pass_default` | RabbitMQ password for glance. ||
+
 
 Dependencies
 ------------
@@ -63,12 +69,13 @@ Example Playbook
     - hosts: glance001
       roles:
         - role: openstack-glance
-          mysql_rootpass: "{{ MYSQL_ROOT }}"
-          rabbit_username: "openstack-glance"
-          rabbit_pass: "{{ RABBIT_GLANCE_PASS }}"
-          glance_dbpass: "{{ GLANCE_DBPASS }}"
-          glance_pass: "{{ GLANCE_PASS }}"
-          admin_token: "{{ ADMIN_TOKEN }}"
+            mysql_rootpass: "{{ MYSQL_ROOT }}"
+            rabbit_username: "openstack-glance"
+            rabbit_pass: "{{ RABBIT_GLANCE_PASS }}"
+            glance_dbpass: "{{ GLANCE_DBPASS }}"
+            glance_pass: "{{ GLANCE_PASS }}"
+            admin_token: "{{ ADMIN_TOKEN }}"
+            glance_hostname: "{{ ansible_eth0.ipv4.address }}"
 
 License
 -------

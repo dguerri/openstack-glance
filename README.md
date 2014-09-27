@@ -69,13 +69,13 @@ Example Playbook
     - hosts: glance001
       roles:
         - role: openstack-glance
-            mysql_rootpass: "{{ MYSQL_ROOT }}"
-            rabbit_username: "openstack-glance"
-            rabbit_pass: "{{ RABBIT_GLANCE_PASS }}"
-            glance_dbpass: "{{ GLANCE_DBPASS }}"
-            glance_pass: "{{ GLANCE_PASS }}"
-            admin_token: "{{ ADMIN_TOKEN }}"
-            glance_hostname: "{{ ansible_eth0.ipv4.address }}"
+          mysql_rootpass: "{{ MYSQL_ROOT }}"
+          rabbit_username: "openstack-glance"
+          rabbit_pass: "{{ RABBIT_GLANCE_PASS }}"
+          glance_dbpass: "{{ GLANCE_DBPASS }}"
+          glance_pass: "{{ GLANCE_PASS }}"
+          admin_token: "{{ ADMIN_TOKEN }}"
+          glance_hostname: "{{ ansible_eth0.ipv4.address }}"
 
 License
 -------

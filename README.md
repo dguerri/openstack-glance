@@ -77,6 +77,13 @@ Example Playbook
           admin_token: "{{ ADMIN_TOKEN }}"
           glance_hostname: "{{ ansible_eth0.ipv4.address }}"
 
+---
+
+A complete Ansible playbook demo, which uses this role, is available here: <https://github.com/dguerri/vagrant-ansible-openstack>
+
+---
+
+
 License
 -------
 

@@ -70,4 +70,4 @@ Apache
 Author Information
 ------------------
 
-Davide Guerri - davide.guerri@gmail.com
+Copyright (c) 2015 Davide Guerri <davide.guerri@gmail.com>

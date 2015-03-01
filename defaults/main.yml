@@ -18,7 +18,6 @@
 #
 
 # Glance
-glance_dbpass: glance_dbpass_default
 glance_hostname: localhost
 glance_pass: glance_pass_default
 glance_port: 9292
@@ -31,10 +30,8 @@ keystone_hostname: localhost
 keystone_port: 5000
 keystone_protocol: http
 
-# MySQL
-mysql_admin_username: root
-mysql_hostname: localhost
-mysql_rootpass: mysql_root_default
+# Database
+glance_database_url: sqlite:////var/lib/glance/glance.sqlite
 
 # RabbitMQ
 rabbit_hostname: localhost

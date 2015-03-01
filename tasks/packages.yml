@@ -17,8 +17,12 @@
 # limitations under the License.
 #
 
-- name: Install glance service and client
-  apt: name="{{ item }}" state=present
-  with_items:
-    - glance
-    - python-glanceclient
+- name: Install Glance server
+  apt: name=glance state=present
+  notify:
+    - Restart Glance API
+    - Restart Glance registry
+
+- name: Install Glance client
+  apt: name=python-glanceclient state=present
+

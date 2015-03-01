@@ -17,16 +17,28 @@
 # limitations under the License.
 #
 
-- name: Sync glance db
+- name: Start Glance API
+  service: name=glance-api state=started
+
+- name: Start Glance registry
+  service: name=glance-registry state=started
+
+- name: Restart Glance API
+  service: name=glance-api state=restarted
+
+- name: Restart Glance registry
+  service: name=glance-registry state=restarted
+
+- name: Reload Glance API
+  service: name=glance-api state=reloaded
+
+- name: Reload Glance registry
+  service: name=glance-registry state=reloaded
+
+- name: Sync Glance database
   shell: glance-manage db_sync
   sudo: yes
   sudo_user: glance
   notify:
-    - Restart glance API
-    - Restart glance registry
-
-- name: Restart glance API
-  service: name=glance-api state=restarted
-
-- name: Restart glance registry
-  service: name=glance-registry state=restarted
+    - Restart Glance API
+    - Restart Glance registry

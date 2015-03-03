@@ -25,7 +25,6 @@ glance_port: 9292
 glance_protocol: http
 
 # Keystone
-admin_token: admin_token_default
 keystone_admin_port: 35357
 keystone_hostname: localhost
 keystone_port: 5000

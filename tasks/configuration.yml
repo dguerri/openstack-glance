@@ -39,6 +39,9 @@
       option:   rpc_backend
       value:    rabbit
     - section:  DEFAULT
+      option:   bind_port
+      value:    "{{ glance_port }}"
+    - section:  DEFAULT
       option:   rabbit_host
       value:    "{{ rabbit_hostname }}"
     - section:  DEFAULT

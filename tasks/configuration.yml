@@ -67,7 +67,7 @@
       value:    service
     - section:  keystone_authtoken
       option:   admin_user
-      value:    glance
+      value:    "{{ glance_user }}"
     - section:  keystone_authtoken
       option:   admin_password
       value:    "{{ glance_pass }}"

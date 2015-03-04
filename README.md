@@ -24,7 +24,8 @@ Role Variables
 |---  |---  |---  |--- |
 | `glance_database_url` | `sqlite:////var/lib/glance/glance.sqlite` | Database URI ||
 | `glance_hostname` | `localhost` | Hostname/IP address where this role runs, it will be used to set keystone endpoints ||
-| `glance_pass` | `glance_pass_default` | Desired password for the image service ||
+| `glance_user` | `glance` | Admin user for the image service as defined on Keystone ||
+| `glance_pass` | `glance_pass_default` | Password for the image service as defined on Keystone ||
 | `glance_port` | `9292` | Desired glance service port ||
 | `glance_protocol` | `http` | Desired glance protocol (http/https) | WiP, do not use. |
 | `keystone_admin_port` | `35357` | Keystone admin service port ||

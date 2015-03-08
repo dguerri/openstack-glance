@@ -19,7 +19,7 @@
 #
 
 # Glance
-glance_hostname: localhost
+glance_bind_host: 0.0.0.0
 glance_user: glance
 glance_pass: glance_pass_default
 glance_port: 9292

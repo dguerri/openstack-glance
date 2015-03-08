@@ -20,21 +20,22 @@ Role Variables
 
 ### Glance (set by this role)
 
-| Name | Default value | Description | Note |
-|---  |---  |---  |--- |
-| `glance_database_url` | `sqlite:////var/lib/glance/glance.sqlite` | Database URI ||
-| `glance_hostname` | `localhost` | Hostname/IP address where this role runs, it will be used to set keystone endpoints ||
-| `glance_user` | `glance` | Admin user for the image service as defined on Keystone ||
-| `glance_pass` | `glance_pass_default` | Password for the image service as defined on Keystone ||
-| `glance_port` | `9292` | Desired glance service port ||
-| `glance_protocol` | `http` | Desired glance protocol (http/https) | WiP, do not use. |
-| `keystone_admin_port` | `35357` | Keystone admin service port ||
-| `keystone_hostname` | `localhost` | Hostname/IP address where the keystone service runs ||
-| `keystone_port` | `5000` | Keystone service port ||
-| `keystone_protocol` | `http` | Desired glance protocol (http/https) | WiP, do not use. |
-| `rabbit_hostname` | `localhost` | Hostname/IP address where the RabbitMQ service runs ||
-| `rabbit_username` | `rabbit_username_default` | RabbitMQ username for glance ||
-| `rabbit_pass` | `rabbit_pass_default` | RabbitMQ password for glance. ||
+| Name | Default value | Description |
+|---  |---  |---  |
+| `glance_database_url` | `sqlite:////var/lib/glance/glance.sqlite` | Database URI |
+| `glance_user` | `glance` | Admin user for the image service as defined on Keystone |
+| `glance_pass` | `glance_pass_default` | Password for the image service as defined on Keystone |
+| `glance_bind_host` | `0.0.0.0` | IP address glance API will bind to |
+| `glance_port` | `9292` | Desired glance service port |
+| `glance_protocol` | `http` | Desired glance protocol (http/https) - WiP, do not use. |
+| `keystone_admin_port` | `35357` | Keystone admin service port |
+| `keystone_hostname` | `localhost` | Hostname/IP address where the keystone service runs |
+| `keystone_port` | `5000` | Keystone service port |
+| `keystone_protocol` | `http` | Desired glance protocol (http/https) - WiP, do not use |
+| `rabbit_hostname` | `localhost` | Hostname/IP address where the RabbitMQ service runs |
+| `rabbit_username` | `rabbit_username_default` | RabbitMQ username for glance |
+| `rabbit_pass` | `rabbit_pass_default` | RabbitMQ password for glance |
+| `glance_hostname` | `localhost` | Hostname/IP used internally during configuration. localhost is usually ok |
 
 
 Dependencies

@@ -1,7 +1,8 @@
 ---
 
 #
-# Copyright (c) 2014 Davide Guerri <davide.guerri@gmail.com>
+# Copyright (c) 2015 Davide Guerri <davide.guerri@gmail.com>
+#
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,15 +21,13 @@
 - meta: flush_handlers
 
 - include: packages.yml
-- include: database.yml
 - include: configuration.yml
 
 - meta: flush_handlers
 
-- name: Wait glance
-  wait_for: host="{{ glance_hostname }}" port="{{ glance_port }}" delay=2
-
-- include: maintenance.yml
-- include: endpoints.yml
-- include: users.yml
-- include: roles.yml
+- name: Make sure Glance registry is started
+  service: name=glance-registry state=started
+- name: Make sure Glance API is started
+  service: name=glance-api state=started
+- name: Wait Glance
+  wait_for: host="{{ glance_hostname }}" port="{{ glance_port }}"

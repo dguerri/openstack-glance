@@ -1,7 +1,8 @@
 ---
 
 #
-# Copyright (c) 2014 Davide Guerri <davide.guerri@gmail.com>
+# Copyright (c) 2015 Davide Guerri <davide.guerri@gmail.com>
+#
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,23 +19,21 @@
 #
 
 # Glance
-glance_dbpass: glance_dbpass_default
-glance_hostname: localhost
+glance_bind_host: 0.0.0.0
+glance_user: glance
 glance_pass: glance_pass_default
 glance_port: 9292
 glance_protocol: http
+glance_log_dir: /var/log/glance
 
 # Keystone
-admin_token: admin_token_default
 keystone_admin_port: 35357
 keystone_hostname: localhost
 keystone_port: 5000
 keystone_protocol: http
 
-# MySQL
-mysql_admin_username: root
-mysql_hostname: localhost
-mysql_rootpass: mysql_root_default
+# Database
+glance_database_url: sqlite:////var/lib/glance/glance.sqlite
 
 # RabbitMQ
 rabbit_hostname: localhost

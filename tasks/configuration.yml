@@ -1,7 +1,8 @@
 ---
 
 #
-# Copyright (c) 2014 Davide Guerri <davide.guerri@gmail.com>
+# Copyright (c) 2015 Davide Guerri <davide.guerri@gmail.com>
+#
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,18 +18,32 @@
 # limitations under the License.
 #
 
-- name: Configure glance API
-  ini_file: dest=/etc/glance/glance-api.conf
-            section="{{ item.section }}"
-            option="{{ item.option }}"
-            value="{{ item.value }}"
+- name: Configure Glance API database
+  ini_file: >
+    dest=/etc/glance/glance-api.conf
+    section=database
+    option=connection
+    value="{{ glance_database_url }}"
+  notify:
+    - Sync Glance database
+    - Reload Glance API
+
+- name: Configure Glance API
+  ini_file: >
+    dest=/etc/glance/glance-api.conf
+    section="{{ item.section }}"
+    option="{{ item.option }}"
+    value="{{ item.value }}"
   with_items:
-    - section:  database
-      option:   connection
-      value:    "mysql://glance:{{ glance_dbpass }}@{{ mysql_hostname }}/glance"
     - section:  DEFAULT
       option:   rpc_backend
       value:    rabbit
+    - section:  DEFAULT
+      option:   bind_host
+      value:    "{{ glance_bind_host }}"
+    - section:  DEFAULT
+      option:   bind_port
+      value:    "{{ glance_port }}"
     - section:  DEFAULT
       option:   rabbit_host
       value:    "{{ rabbit_hostname }}"
@@ -38,6 +53,9 @@
     - section:  DEFAULT
       option:   rabbit_password
       value:    "{{ rabbit_pass }}"
+    - section:  DEFAULT
+      option:   log_file
+      value:    "{{ glance_log_dir }}/api.log"
     - section:  keystone_authtoken
       option:   auth_uri
       value:    "{{ keystone_protocol }}://{{ keystone_hostname }}:{{ keystone_port }}/v2.0"
@@ -55,7 +73,7 @@
       value:    service
     - section:  keystone_authtoken
       option:   admin_user
-      value:    glance
+      value:    "{{ glance_user }}"
     - section:  keystone_authtoken
       option:   admin_password
       value:    "{{ glance_pass }}"
@@ -63,17 +81,28 @@
       option:   flavor
       value:    keystone
   notify:
-    - Restart glance API
+    - Reload Glance API
 
-- name: Configure glance registry
-  ini_file: dest=/etc/glance/glance-registry.conf
-            section="{{ item.section }}"
-            option="{{ item.option }}"
-            value="{{ item.value }}"
+- name: Configure Glance registry database
+  ini_file: >
+    dest=/etc/glance/glance-registry.conf
+    section=database
+    option=connection
+    value="{{ glance_database_url }}"
+  notify:
+    - Sync Glance database
+    - Reload Glance registry
+
+- name: Configure Glance registry
+  ini_file: >
+    dest=/etc/glance/glance-registry.conf
+    section="{{ item.section }}"
+    option="{{ item.option }}"
+    value="{{ item.value }}"
   with_items:
-    - section:  database
-      option:   connection
-      value:    "mysql://glance:{{ glance_dbpass }}@{{ mysql_hostname }}/glance"
+    - section:  DEFAULT
+      option:   log_file
+      value:    "{{ glance_log_dir }}/registry.log"
     - section:  keystone_authtoken
       option:   auth_uri
       value:    "{{ keystone_protocol }}://{{ keystone_hostname }}:{{ keystone_port }}/v2.0"
@@ -99,4 +128,4 @@
       option:   flavor
       value:    keystone
   notify:
-    - Restart glance registry
+    - Reload Glance registry

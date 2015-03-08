@@ -1,0 +1,46 @@
+---
+language: python
+python: "2.7"
+
+services:
+  - rabbitmq
+
+
+before_install:
+  # Make sure everything's up to date.
+  - sudo apt-get install python-software-properties
+  - sudo add-apt-repository -y cloud-archive:icehouse
+  - sudo apt-get update -qq
+
+
+install:
+  # Install Ansible.
+  - sudo pip install ansible
+
+  # Add ansible.cfg to pick up roles path.
+  - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
+
+  # Install required ansible roles
+  - ansible-galaxy install dguerri.openstack-keystone,2.0.0
+
+
+script:
+  # Check the role/playbook's syntax.
+  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+
+  # Run the role/playbook with ansible-playbook.
+  - >
+    ansible-playbook -i tests/inventory tests/test.yml --connection=local
+    --sudo
+
+  # Test role idempotency
+  - >
+    ansible-playbook -i tests/inventory tests/test.yml -t glance
+    --connection=local --sudo | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
+
+  # Test Glance setup
+  - >
+    glance --os_auth_url="http://127.0.0.1:5000/v2.0" --os_tenant_name=demo
+    --os_password="demo password" --os_username=demo index

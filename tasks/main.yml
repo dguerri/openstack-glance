@@ -30,4 +30,4 @@
 - name: Make sure Glance API is started
   service: name=glance-api state=started
 - name: Wait Glance
-  wait_for: host="{{ glance_hostname }}" port="{{ glance_port }}" delay=2
+  wait_for: host="{{ glance_hostname }}" port="{{ glance_port }}"

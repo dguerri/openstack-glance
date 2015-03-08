@@ -24,6 +24,7 @@ glance_user: glance
 glance_pass: glance_pass_default
 glance_port: 9292
 glance_protocol: http
+glance_log_dir: /var/log/glance
 
 # Keystone
 keystone_admin_port: 35357

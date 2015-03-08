@@ -28,7 +28,7 @@
     - Sync Glance database
     - Reload Glance API
 
-- name: Configure glance API
+- name: Configure Glance API
   ini_file: >
     dest=/etc/glance/glance-api.conf
     section="{{ item.section }}"
@@ -53,6 +53,9 @@
     - section:  DEFAULT
       option:   rabbit_password
       value:    "{{ rabbit_pass }}"
+    - section:  DEFAULT
+      option:   log_file
+      value:    "{{ glance_log_dir }}/api.log"
     - section:  keystone_authtoken
       option:   auth_uri
       value:    "{{ keystone_protocol }}://{{ keystone_hostname }}:{{ keystone_port }}/v2.0"
@@ -97,6 +100,9 @@
     option="{{ item.option }}"
     value="{{ item.value }}"
   with_items:
+    - section:  DEFAULT
+      option:   log_file
+      value:    "{{ glance_log_dir }}/registry.log"
     - section:  keystone_authtoken
       option:   auth_uri
       value:    "{{ keystone_protocol }}://{{ keystone_hostname }}:{{ keystone_port }}/v2.0"

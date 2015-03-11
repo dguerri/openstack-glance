@@ -26,7 +26,7 @@
     value="{{ glance_database_url }}"
   notify:
     - Sync Glance database
-    - Reload Glance API
+    - Restart Glance API
 
 - name: Configure Glance API
   ini_file: >
@@ -81,7 +81,7 @@
       option:   flavor
       value:    keystone
   notify:
-    - Reload Glance API
+    - Restart Glance API
 
 - name: Configure Glance registry database
   ini_file: >
@@ -91,7 +91,7 @@
     value="{{ glance_database_url }}"
   notify:
     - Sync Glance database
-    - Reload Glance registry
+    - Restart Glance registry
 
 - name: Configure Glance registry
   ini_file: >
@@ -128,4 +128,4 @@
       option:   flavor
       value:    keystone
   notify:
-    - Reload Glance registry
+    - Restart Glance registry

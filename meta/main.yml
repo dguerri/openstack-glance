@@ -16,3 +16,7 @@ galaxy_info:
         - raring
         - saucy
         - trusty
+    - name: EL
+      versions:
+        - 6
+        - 7

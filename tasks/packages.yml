@@ -1,8 +1,7 @@
 ---
 
 #
-# Copyright (c) 2015 Davide Guerri <davide.guerri@gmail.com>
-#
+# Copyright (c) 2014 Davide Guerri <davide.guerri@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,12 +17,9 @@
 # limitations under the License.
 #
 
-- name: Install Glance server
-  apt: name=glance state=present
-  notify:
-    - Restart Glance API
-    - Restart Glance registry
+- include: packages_redhat.yml
+  when: ansible_os_family == 'RedHat'
 
-- name: Install Glance client
-  apt: name=python-glanceclient state=present
+- include: packages_debian.yml
+  when: ansible_os_family == 'Debian'
 

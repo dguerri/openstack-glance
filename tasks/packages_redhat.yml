@@ -1,8 +1,7 @@
 ---
 
 #
-# Copyright (c) 2015 Davide Guerri <davide.guerri@gmail.com>
-#
+# Copyright (c) 2014 Davide Guerri <davide.guerri@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,17 +17,10 @@
 # limitations under the License.
 #
 
-- meta: flush_handlers
+- name: Install glance service and client
+  yum: name="{{ item }}" state=present
+  with_items:
+    - openstack-glance
+    - python-glanceclient
 
-- include: facts.yml
-- include: packages.yml
-- include: configuration.yml
 
-- meta: flush_handlers
-
-- name: Make sure Glance registry is started
-  service: name={{ glance_registry_service }} state=started
-- name: Make sure Glance API is started
-  service: name={{ glance_api_service }} state=started
-- name: Wait Glance
-  wait_for: host="{{ glance_hostname }}" port="{{ glance_port }}"

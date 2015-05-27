@@ -1,8 +1,7 @@
 ---
 
 #
-# Copyright (c) 2015 Davide Guerri <davide.guerri@gmail.com>
-#
+# Copyright (c) 2014 Davide Guerri <davide.guerri@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,17 +17,20 @@
 # limitations under the License.
 #
 
-- meta: flush_handlers
+- name: Set service facts
+  set_fact: glance_api_service="glance-api"
+  when: ansible_os_family == 'Debian'
 
-- include: facts.yml
-- include: packages.yml
-- include: configuration.yml
+- name: Set service facts
+  set_fact: glance_registry_service="glance-registry"
+  when: ansible_os_family == 'Debian'
 
-- meta: flush_handlers
+- name: Set service facts
+  set_fact: glance_api_service="openstack-glance-api"
+  when: ansible_os_family == 'RedHat'
 
-- name: Make sure Glance registry is started
-  service: name={{ glance_registry_service }} state=started
-- name: Make sure Glance API is started
-  service: name={{ glance_api_service }} state=started
-- name: Wait Glance
-  wait_for: host="{{ glance_hostname }}" port="{{ glance_port }}"
+- name: Set service facts
+  set_fact: glance_registry_service="openstack-glance-registry"
+  when: ansible_os_family == 'RedHat'
+
+

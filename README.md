@@ -2,8 +2,8 @@ Glance OpenStack Ansible Role
 =========
 
 **Status**
-* [![Build Status](https://travis-ci.org/dguerri/openstack-glance.svg?branch=master)](https://travis-ci.org/dguerri/openstack-glance) on master branch
-* [![Build Status](https://travis-ci.org/dguerri/openstack-glance.svg?branch=development)](https://travis-ci.org/dguerri/openstack-glance) on development branch
+* [![Build Status](https://travis-ci.org/openstack-ansible-galaxy/openstack-glance.svg?branch=master)](https://travis-ci.org/openstack-ansible-galaxy/openstack-glance) on master branch
+* [![Build Status](https://travis-ci.org/openstack-ansible-galaxy/openstack-glance.svg?branch=development)](https://travis-ci.org/openstack-ansible-galaxy/openstack-glance) on development branch
 * [![Ansible Galaxy](http://img.shields.io/badge/dguerri-openstack--glance-blue.svg)](https://galaxy.ansible.com/list#/roles/1768) on Ansible Galaxy
 
 OpenStack Glance image service installation

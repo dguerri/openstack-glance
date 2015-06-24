@@ -56,18 +56,15 @@
     - section:  DEFAULT
       option:   log_file
       value:    "{{ glance_log_dir }}/api.log"
+    - section:  DEFAULT
+      option:   verbose
+      value:    True
+    - section:  keystone_authtoken
+      option:   identity_uri
+      value:    "{{ keystone_protocol }}://{{ keystone_hostname }}:{{ keystone_admin_port }}"
     - section:  keystone_authtoken
       option:   auth_uri
       value:    "{{ keystone_protocol }}://{{ keystone_hostname }}:{{ keystone_port }}/v2.0"
-    - section:  keystone_authtoken
-      option:   auth_host
-      value:    "{{ keystone_hostname }}"
-    - section:  keystone_authtoken
-      option:   auth_port
-      value:    "{{ keystone_admin_port }}"
-    - section:  keystone_authtoken
-      option:   auth_protocol
-      value:    "{{ keystone_protocol }}"
     - section:  keystone_authtoken
       option:   admin_tenant_name
       value:    service
@@ -103,18 +100,15 @@
     - section:  DEFAULT
       option:   log_file
       value:    "{{ glance_log_dir }}/registry.log"
+    - section:  DEFAULT
+      option:   verbose
+      value:    True
+    - section:  keystone_authtoken
+      option:   identity_uri
+      value:    "{{ keystone_protocol }}://{{ keystone_hostname }}:{{ keystone_admin_port }}"
     - section:  keystone_authtoken
       option:   auth_uri
       value:    "{{ keystone_protocol }}://{{ keystone_hostname }}:{{ keystone_port }}/v2.0"
-    - section:  keystone_authtoken
-      option:   auth_host
-      value:    "{{ keystone_hostname }}"
-    - section:  keystone_authtoken
-      option:   auth_port
-      value:    "{{ keystone_admin_port }}"
-    - section:  keystone_authtoken
-      option:   auth_protocol
-      value:    "{{ keystone_protocol }}"
     - section:  keystone_authtoken
       option:   admin_tenant_name
       value:    service
